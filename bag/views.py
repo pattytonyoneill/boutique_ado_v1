@@ -43,7 +43,7 @@ def add_to_bag(request, item_id):
 
     request.session['bag'] = bag
     return redirect(redirect_url)
-    
+
 
 def adjust_bag(request, item_id):
     """Adjust the quantity of the specified product to the specified amount"""
@@ -90,10 +90,12 @@ def remove_from_bag(request, item_id):
             del bag[item_id]['items_by_size'][size]
             if not bag[item_id]['items_by_size']:
                 bag.pop(item_id)
-            messages.success(request, f'Removed size {size.upper()} {product.name} from your bag')
+            messages.success(
+                request, f'Removed size {size.upper()} {product.name} from your bag')
         else:
             bag.pop(item_id)
-            messages.success(request, f'Removed {product.name} from your bag')
+            messages.success(
+                request, f'Removed {product.name} from your bag')
 
         request.session['bag'] = bag
         return HttpResponse(status=200)
